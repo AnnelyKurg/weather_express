@@ -2,10 +2,9 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const fetch = require('node-fetch')
-
 const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended:true}));
 
+app.use(bodyParser.urlencoded({extended:true}));
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
@@ -25,7 +24,8 @@ const getWeatherDataPromise = (url) => {
                let result = {
                    description: description,
                    city: city,
-                   temp: temp
+                   temp: temp,
+                   error: null
                }
                resolve(result)
             })
@@ -48,6 +48,9 @@ app.all('/', function (req, res){
         .then(data => {
             res.render('index', data)
         })
+        .catch(error => {
+        res.render('index', {error: 'Problem with getting data, try again'})
+    })
 })
 /*app.get('/', function (req, res){
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`)

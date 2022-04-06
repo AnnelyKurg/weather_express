@@ -1,5 +1,6 @@
 <%- include('header'); %>
 <div class="mx-3 my-3 border text-center" style="width: 120px; height: 150px" id="weather">
+    <% if(error === null) {%>
     <p id="description"><%= description %></p>
     <h1 id="temp"><%= temp %></h1>
     <p id="location"><%= city %></p>
@@ -12,6 +13,13 @@
         <br>
         <button id="button" type="submit" class="btn btn-light" value="Save changes">Save changes</button>
     </form>
+    <% } else { %>
+        <div class="alert alert-danger" role="alert">
+            <%= error %>
+        </div>
+    <a class="btn btn secondary text-white"
+    href="/" role="button">Try again</a>
+    <% } %>
 </div>
 </div>
 <%- include('footer'); %>
