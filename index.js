@@ -49,7 +49,13 @@ app.all('/', function (req, res){
             res.render('index', data)
         })
         .catch(error => {
-        res.render('index', {error: 'Problem with getting data, try again'})
+            let errorMessage
+            if(city === ' '){
+        res.render('index', {error: 'Please enter a city name'})
+                errorMessage = 'Please enter a city name'
+            } else {
+                res.render('index', {error: 'Problem with getting data, try again'})
+                errorMessage = 'Problem with getting data, try again'}
     })
 })
 /*app.get('/', function (req, res){
